@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+      //  $this->middleware('auth');
     }
 
     /**
@@ -30,9 +30,21 @@ class HomeController extends Controller
     public function index()
     {
         $contacts = \App\Models\Contact::orderBy('id')->get();
-        return view('home', [
+        return view('welcome', [
             'contacts' =>  $contacts,
         ]);
+    }
+
+    
+    public function viewContact(Request $request){
+        if(($request->id <> null) && ($request->id <> "")){
+            $contact = \App\Models\Contact::where('id','=',$request->id)->first();
+            return view('home', [
+                'contact' =>  $contact,
+            ]);
+        }else{
+            return view('home');
+        }
     }
 
     //Get Contact for Edit.
@@ -53,19 +65,35 @@ class HomeController extends Controller
         try{
 
             $dados = $request->validate([
-                'name'  => 'required|string|min:5|max:255',
-                'email'  => 'required|email|max:255|unique:contacts,email',
-                'contact'  => 'required|string|min:9|max:9|unique:contacts,contact', 
-            ]);
-            
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            $errorMessages = '';
-            foreach($e->errors() as $key => $value) {
-                $errorMessages .= $value[0]."<br>";
-            }
-            Alert::html("Registration Error!",$errorMessages,'error');
-            return Redirect::to('/home');
-        }
+                  'name'  => [
+                     'required',
+                     'string',
+                     'min:5',
+                     'max:255',
+                 ],
+                  'email' => [
+                     'email',
+                     'required',
+                     'max:255',
+                     Rule::unique('contacts')->ignore($request->id),
+                 ],
+                 'contact'  => [
+                     'required',
+                     'string',
+                     'min:9',
+                     'max:9',
+                     Rule::unique('contacts')->ignore($request->id), 
+                 ],
+             ]);
+             
+         } catch (\Illuminate\Validation\ValidationException $e) {
+             $errorMessages = '';
+             foreach($e->errors() as $key => $value) {
+                 $errorMessages .= $value[0]."<br>";
+             }
+             Alert::html("Registration Error!",$errorMessages,'error');
+             return Redirect::to('/home');
+         }
 
 
 
@@ -78,12 +106,13 @@ class HomeController extends Controller
             Alert::html("Success","Registration Successful!",'success');
             return Redirect::to('home');
         }else{
+            
             $contact = new \App\Models\Contact;
             $contact->name = $request->name;
             $contact->email = $request->email;
             $contact->contact = $request->contact;
             $contact->save();
-            return Redirect::to('home');
+            return Redirect::to('/');
         }
     }
     public function deleteContact(Request $request){
@@ -91,9 +120,9 @@ class HomeController extends Controller
             $contact = \App\Models\Contact::where('id','=',$request->id)->first();
             $contact->delete();
             Alert::html("Delete Success","Registration Delete Successful!",'success');
-            return view('home');
+            return view('/');
         }else{
-            return view('home');
+            return view('/');
         }
     }
 }

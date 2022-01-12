@@ -12,12 +12,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
 
 Auth::routes();
+//Index Page
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //Principal Page / Dashboard
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 //Route for edit contacts
@@ -28,3 +31,5 @@ Route::get('/createcontact', [App\Http\Controllers\HomeController::class, 'editC
 Route::post('/savecontact', [App\Http\Controllers\HomeController::class, 'saveContact'])->name('saveContact')->middleware('auth');
 //Route for delete contacts
 Route::post('/deletecontact', [App\Http\Controllers\HomeController::class, 'deleteContact'])->name('deleteContact')->middleware('auth');
+//Route for view contact
+Route::post('/viewcontact', [App\Http\Controllers\HomeController::class, 'viewContact'])->name('viewContact')->middleware('auth');

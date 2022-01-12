@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                @foreach ($contacts as $contact)
                     <tr>
                     <td>{{$contact->id ?? ''}}</td>
                     <td>{{$contact->name ?? ''}}</td>
@@ -56,7 +56,7 @@
                         
                     </td>
                     </tr>
-               
+                @endforeach
                 </tbody>
                 </table>
                 <br>
