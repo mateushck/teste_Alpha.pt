@@ -18,5 +18,13 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Principal Page / Dashboard
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+//Route for edit contacts
+Route::post('/editcontact', [App\Http\Controllers\HomeController::class, 'editContact'])->name('editContact')->middleware('auth');
+//Route for create contacts
+Route::get('/createcontact', [App\Http\Controllers\HomeController::class, 'editContact'])->name('createContact')->middleware('auth');
+//Route for save contacts
+Route::post('/savecontact', [App\Http\Controllers\HomeController::class, 'saveContact'])->name('saveContact')->middleware('auth');
+//Route for delete contacts
+Route::post('/deletecontact', [App\Http\Controllers\HomeController::class, 'deleteContact'])->name('deleteContact')->middleware('auth');
