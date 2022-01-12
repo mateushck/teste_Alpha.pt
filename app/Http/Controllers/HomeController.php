@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class HomeController extends Controller
 {
@@ -47,13 +50,32 @@ class HomeController extends Controller
 
     //Save Contacts and redirect do home
     public function saveContact(Request $request){
+        try{
+
+            $dados = $request->validate([
+                'name'  => 'required|string|min:5|max:255',
+                'email'  => 'required|email|max:255|unique:contacts,email',
+                'contact'  => 'required|string|min:9|max:9|unique:contacts,contact', 
+            ]);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errorMessages = '';
+            foreach($e->errors() as $key => $value) {
+                $errorMessages .= $value[0]."<br>";
+            }
+            Alert::html("Registration Error!",$errorMessages,'error');
+            return Redirect::to('/home');
+        }
+
+
+
         if(($request->id <> null) && ($request->id <> "")){
             $contact = \App\Models\Contact::where('id','=',$request->id)->first();
             $contact->name = $request->name;
             $contact->email = $request->email;
             $contact->contact = $request->contact;
             $contact->save();
-
+            Alert::html("Success","Registration Successful!",'success');
             return Redirect::to('home');
         }else{
             $contact = new \App\Models\Contact;
@@ -65,6 +87,13 @@ class HomeController extends Controller
         }
     }
     public function deleteContact(Request $request){
-        dd($request);
+        if(($request->id <> null) && ($request->id <> "")){
+            $contact = \App\Models\Contact::where('id','=',$request->id)->first();
+            $contact->delete();
+            Alert::html("Delete Success","Registration Delete Successful!",'success');
+            return view('home');
+        }else{
+            return view('home');
+        }
     }
 }
