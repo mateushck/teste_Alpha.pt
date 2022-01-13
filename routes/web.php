@@ -34,21 +34,3 @@ Route::post('/deletecontact', [App\Http\Controllers\HomeController::class, 'dele
 <<<<<<< Updated upstream
 //Route for view contact
 Route::post('/viewcontact', [App\Http\Controllers\HomeController::class, 'viewContact'])->name('viewContact')->middleware('auth');
-=======
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
->>>>>>> Stashed changes
