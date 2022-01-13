@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< Updated upstream
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+=======
+>>>>>>> Stashed changes
 
 class HomeController extends Controller
 {
@@ -25,10 +28,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-
-    //List all contacts in index board.
     public function index()
     {
+<<<<<<< Updated upstream
         $contacts = \App\Models\Contact::orderBy('id')->get();
         return view('welcome', [
             'contacts' =>  $contacts,
@@ -124,5 +126,8 @@ class HomeController extends Controller
         }else{
             return view('/');
         }
+=======
+        return view('home');
+>>>>>>> Stashed changes
     }
 }

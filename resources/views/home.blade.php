@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<<<<<<< Updated upstream
     @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 
     <div class="card-body">
@@ -63,7 +64,25 @@
                     <a href="{{url('/createcontact')}}">
                     <button type="button" class="btn btn-info btn-xs"><i class="fa fa-plus"></i> Create Contact</button>
                 </a>      
+=======
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }}</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    {{ __('You are logged in!') }}
+                </div>
+>>>>>>> Stashed changes
             </div>
         </div>
     </div>
+</div>
 @endsection

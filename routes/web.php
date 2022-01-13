@@ -31,5 +31,24 @@ Route::get('/createcontact', [App\Http\Controllers\HomeController::class, 'editC
 Route::post('/savecontact', [App\Http\Controllers\HomeController::class, 'saveContact'])->name('saveContact')->middleware('auth');
 //Route for delete contacts
 Route::post('/deletecontact', [App\Http\Controllers\HomeController::class, 'deleteContact'])->name('deleteContact')->middleware('auth');
+<<<<<<< Updated upstream
 //Route for view contact
 Route::post('/viewcontact', [App\Http\Controllers\HomeController::class, 'viewContact'])->name('viewContact')->middleware('auth');
+=======
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+>>>>>>> Stashed changes
